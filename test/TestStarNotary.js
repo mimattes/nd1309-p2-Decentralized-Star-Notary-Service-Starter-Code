@@ -88,8 +88,8 @@ it('can add the star name and star symbol properly', async() => {
 
 it('lets 2 users exchange stars', async() => {
     // 1. create 2 Stars with different tokenId
-    let starId = 6;
-    let starId = 7;
+    let starId1 = 6;
+    let starId2 = 7;
     // 2. Call the exchangeStars functions implemented in the Smart Contract
     // 3. Verify that the owners changed
 });
