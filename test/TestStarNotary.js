@@ -102,8 +102,24 @@ it('lets a user transfer a star', async() => {
 });
 
 it('lookUptokenIdToStarInfo test', async() => {
+    let instance = await StarNotary.deployed();
     // 1. create a Star with different tokenId
+    let user = accounts[1];
     let starId = 9;
+    let starName = "this is not the star you are looking for";
+    await instance.createStar(starName, starId, {from: user});
     // 2. Call your method lookUptokenIdToStarInfo
+    let result = await instance.lookUptokenIdToStarInfo(starId);
     // 3. Verify if you Star name is the same
+    assert.equal(result, starName);
+});
+
+it('lookUptokenIdToStarInfo star not defined test', async() => {
+    let instance = await StarNotary.deployed();
+    // 1. not creating any star
+    let starId = 91;
+    // 2. Call your method lookUptokenIdToStarInfo
+    let result = await instance.lookUptokenIdToStarInfo(starId);
+    // 3. Verify zhat result is empty
+    assert.equal(result, "");
 });
