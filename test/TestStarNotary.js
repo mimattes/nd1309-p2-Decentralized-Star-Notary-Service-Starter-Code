@@ -133,3 +133,24 @@ it('lookUptokenIdToStarInfo star not defined test', async() => {
     // 3. Verify zhat result is empty
     assert.equal(result, "");
 });
+
+it('trying to exchange someone else star', async() => {
+    let instance = await StarNotary.deployed();
+    // 1. create 2 Stars with different tokenId
+    let user1 = accounts[3];
+    let starId1 = 61;
+    await instance.createStar('fancy star', starId1, {from: user1});
+    let user2 = accounts[4];
+    let starId2 = 71;
+    await instance.createStar('sparkling star', starId2, {from: user2});
+  
+    // 2. Call the exchangeStars functions implemented in the Smart Contract
+    // This should throw an exception because of require
+    // For whatever reason it does not. Checked ER721 throwing exceptions when require is not met.
+    let someoneElse = accounts[3];
+    instance.exchangeStars(starId1, starId2, {from: someoneElse});
+
+    // check that ownership did not change
+    assert.equal(await instance.ownerOf.call(starId1), user1);
+    assert.equal(await instance.ownerOf.call(starId2), user2);
+});
