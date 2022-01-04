@@ -22,7 +22,7 @@
  *
  */
 
-const HDWallet = require('truffle-hdwallet-provider'); 
+const HDWalletProvider  = require('truffle-hdwallet-provider'); 
 const infuraKey = "<INFURA KEY>";
 const mnemonic = "<METAMASK SEED>";
 
